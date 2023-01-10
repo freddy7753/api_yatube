@@ -6,18 +6,18 @@ from rest_framework import routers
 from api.views import GroupViewSet, PostViewSet, CommentViewSet
 
 
-router = routers.DefaultRouter()
+router_v1 = routers.DefaultRouter()
 # не понял про поддержку версий из кода
-router.register('posts', PostViewSet, basename='post')
-router.register('groups', GroupViewSet, basename='group')
-router.register(
-    r'posts/(?P<id>\d+)/comments',
+router_v1.register('api/v1/posts', PostViewSet, basename='post')
+router_v1.register('api/v1/groups', GroupViewSet, basename='group')
+router_v1.register(
+    r'api/v1/posts/(?P<id>\d+)/comments',
     CommentViewSet,
     basename='comment'
 )
 
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-token-auth/', views.obtain_auth_token),
+    path('', include(router_v1.urls)),
+    path('api/v1/api-token-auth/', views.obtain_auth_token),
 ]
